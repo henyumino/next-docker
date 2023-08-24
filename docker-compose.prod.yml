@@ -1,9 +1,19 @@
 version: '3.8'
 
 services:
+  webserver:
+    depends_on:
+      - frontend
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports:
+      - "80:80"
+
   frontend: 
     build: 
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.prod
       context: './frontend'
     volumes:
       - /usr/app/frontend/node_modules
